@@ -76,6 +76,31 @@ library(DESeq2)
 vsd <- vst(dds, blind = FALSE)
 
 vst_matrix <- assay(vsd)
+# PCA Plot 1: Standard DESeq2 PCA by Subtype (Healthy_Control, Basal_Tumor, LumA_Tumor)
+plotPCA(vsd, intgroup = "AnalysisGroup") +
+  scale_color_manual(values = c(
+    "Healthy_Control" = "#F8766D",
+    "Basal_Tumor"     = "#00BA38",
+    "LumA_Tumor"      = "#619CFF"
+  )) +
+  theme_bw()
+
+# PCA Plot 2: PCA grouped by Tissue Site / Center Code
+# (Extracting tissue site prefix from TCGA barcodes, e.g., '3C', 'A1', 'A2', etc.)
+vsd$tissue_site <- factor(substr(colnames(vsd), 6, 7))
+plotPCA(vsd, intgroup = "tissue_site") +
+  theme_bw()
+
+# PCA Plot 3: PCA grouped by Sample Type & Tissue Preservation Condition
+# (Categorizing sample preservation: FFPE vs OCT / Normal vs Tumor)
+vsd$sample_preservation <- paste0(
+  ifelse(grepl("FFPE", vsd$sample_type, ignore_case = TRUE), "FFPE",
+         ifelse(grepl("OCT", vsd$sample_type, ignore_case = TRUE), "OCT", "Unknown")),
+  ":",
+  ifelse(vsd$AnalysisGroup == "Healthy_Control", "Normal", "Tumor")
+)
+plotPCA(vsd, intgroup = "sample_preservation") +
+  theme_bw()
 mapping_table <- res_Basal_vs_LumA_df %>% filter(gene_symbol %in% target_genes_coexpression) %>% select( Esembl_ID, gene_symbol)
 
 target_ensg <- mapping_table$Esembl_ID

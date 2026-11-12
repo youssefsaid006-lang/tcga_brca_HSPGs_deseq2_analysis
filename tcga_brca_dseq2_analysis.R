@@ -131,6 +131,7 @@ library(DESeq2)
 
 
 vst_matrix <- assay(vsd)
+target_genes_coexpression <- c("EXT1", "SDC1","SDC2", "SDC3", "SDC4")
 mapping_table <- res_Basal_vs_LumA_df %>% filter(gene_symbol %in% target_genes_coexpression) %>% select( Esembl_ID, gene_symbol)
 
 target_ensg <- mapping_table$Esembl_ID
@@ -311,7 +312,7 @@ plot_basal_norm <- diff_table %>%
 print(plot_lum_norm)
 print(plot_basal_lum)
 print(plot_basal_norm)
-target_genes_coexpression <- c("EXT1", "SDC1","SDC2", "SDC3", "SDC4")
+
 
 
 #PLOT TO SHOW CORRELATIONS BETWEEN EXT1 AND SDC GENES IN EACH SUBTYPE

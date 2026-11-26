@@ -1,0 +1,6 @@
+Survival Type	Number of Patients	# in Altered group	# in Unaltered group	Median months survival in Altered group (95% CI)	Median months survival in Unaltered group (95% CI)	p-Value	q-Value
+Relapse Free 	2078	497	1581	164.97 (122.80 - 211.13)	285.70 (218.67 - NA)	9.105e-6	3.816e-5
+Overall  	3066	616	2450	125.87 (108.47 - 148.10)	166.73 (153.90 - 175.90)	1.527e-5	3.816e-5
+Disease-specific  	1063	133	930	NA	NA	0.891	0.989
+Progression Free 	1082	135	947	146.50 (101.13 - NA)	168.23 (138.18 - NA)	0.987	0.989
+Disease Free 	941	117	824	NA	NA	0.989	0.989
